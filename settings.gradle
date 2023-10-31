@@ -1,0 +1,34 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+buildscript {
+    ext.kotlin_version = '1.9.0'
+    repositories { mavenCentral() }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+    }
+}
+/*toolchainManagement {
+    jvm {
+        javaRepositories {
+            repository('foojay') {
+                resolverClass = org.gradle.toolchains.foojay.FoojayToolchainResolver
+            }
+        }
+    }
+}*/
+
+rootProject.name = "NotesApp"
+include ':app'
