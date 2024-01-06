@@ -1,6 +1,7 @@
 package com.example.notesapp.feature_note.presentation.edit_note
 
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -25,6 +26,8 @@ class EditNoteViewModel @Inject constructor(
     private val _noteContent = mutableStateOf(NoteTextFieldState(hint = "Thoughts..."))
     val noteContent: State<NoteTextFieldState> = _noteContent
 
+    val timestamp = mutableLongStateOf(-1)
+
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
@@ -44,6 +47,7 @@ class EditNoteViewModel @Inject constructor(
                             text = note.content,
                             isHintVisible = false
                         )
+                        timestamp.value = note.timestamp
                     }
                 }
             }
@@ -80,6 +84,7 @@ class EditNoteViewModel @Inject constructor(
                                 title = noteTitle.value.text,
                                 content = noteContent.value.text,
                                 timestamp = System.currentTimeMillis(),
+                                pinned = false,
                                 id = currentNoteId
                             )
                         )

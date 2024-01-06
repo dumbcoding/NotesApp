@@ -20,7 +20,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Sort
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -44,7 +43,6 @@ import com.example.notesapp.feature_note.presentation.util.Screen
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NotesScreen(
     navController: NavController,
@@ -119,6 +117,11 @@ fun NotesScreen(
                                     viewModel.onEvent(NotesEvent.RestoreNote)
                                 }
                             }
+                        },
+                        onPinClick = {
+                            //the functionality will be updated later
+                            //viewModel.onEvent(NotesEvent.PinNote(note))
+                            //viewModel.onEvent(NotesEvent.Order(state.noteOrder))
                         }
                     )
                     Spacer(modifier = Modifier.height(16.dp))

@@ -60,6 +60,20 @@ class NotesViewModel @Inject constructor(
                     isOrderSectionVisible = !state.value.isOrderSectionVisible
                 )
             }
+
+            is NotesEvent.PinNote -> {
+                var note = event.note
+                viewModelScope.launch {
+                    if(note.pinned){
+                        note.pinned = false
+                        noteUseCases.addNote(note)
+                    }
+                    else{
+                        note.pinned = true
+                        noteUseCases.addNote(note)
+                    }
+                }
+            }
         }
     }
 

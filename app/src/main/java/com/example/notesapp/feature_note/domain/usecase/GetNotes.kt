@@ -17,14 +17,22 @@ class GetNotes(
             notes -> when(noteOrder.orderType){
                 is OrderType.Ascending -> {
                     when(noteOrder){
-                        is NoteOrder.Title -> notes.sortedBy { it.title.lowercase() }
-                        is NoteOrder.Date -> notes.sortedBy { it.timestamp }
+                        is NoteOrder.Title -> notes.sortedWith(compareBy({it.pinned},{it.title.lowercase()}))
+                        is NoteOrder.Date -> notes.sortedWith(compareBy({it.pinned},{it.timestamp}))
                     }
                 }
                 is OrderType.Descending -> {
                     when(noteOrder) {
-                        is NoteOrder.Title -> notes.sortedByDescending { it.title.lowercase() }
-                        is NoteOrder.Date -> notes.sortedByDescending { it.timestamp }
+                        is NoteOrder.Title -> notes.sortedWith(compareByDescending<Note> {
+                            it.pinned
+                        }.thenByDescending {
+                            it.title.lowercase()
+                        })
+                        is NoteOrder.Date -> notes.sortedWith(compareByDescending<Note> {
+                            it.pinned
+                        }.thenByDescending {
+                            it.timestamp
+                        })
                     }
                 }
             }
